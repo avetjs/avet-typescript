@@ -12,7 +12,8 @@
     "typescript"
   ],
   "dependencies": {
-    "ts-loader": "^3.0.5"
+    "ts-loader": "^3.0.5",
+    "typescript": "^2.5.3"
   },
   "devDependencies": {
     "avet-bin": "0.2.0"
