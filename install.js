@@ -56,6 +56,7 @@ const vscode = Object.assign(
 
 const tsconfig = Object.assign(
   {
+    compileOnSave: true,
     compilerOptions: {
       target: 'es2017',
       module: 'commonjs',
@@ -77,6 +78,8 @@ const tsconfig = Object.assign(
       importHelpers: true,
       jsx: 'react-native',
     },
+    include: [ 'app/**/*', 'config/**/*', 'web/**/*', 'test/**/*.ts' ],
+    exclude: [ 'app/public', 'app/views', 'web/static' ],
   },
   pkg.ts.tsconfig || {}
 );
