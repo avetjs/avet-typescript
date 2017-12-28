@@ -15,10 +15,13 @@ const tscFileName = path.join(root, 'tsconfig.json');
 const tslFileName = path.join(root, 'tslint.json');
 
 mkdir(path.join(root, '.vscode'));
+if (!exists(tscFileName)) {
+  fs.writeFileSync(vscFileName, JSON.stringify({}, null, 2));
+}
 
 let pkg;
 try {
-  pkg = require(root);
+  pkg = require(pkgFileName);
 } catch (err) {
   console.error('read package.json error: %s', err.message);
   process.exit(0);

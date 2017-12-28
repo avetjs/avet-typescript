@@ -5,20 +5,17 @@
   "avetPlugin": {
     "name": "typescript"
   },
-  "keywords": [
-    "avet",
-    "avetPlugin",
-    "avet-plugin",
-    "typescript"
-  ],
+  "keywords": ["avet", "avetPlugin", "avet-plugin", "typescript"],
   "scripts": {
     "test": "NODE_ENV=test ava",
-    "cov": "NODE_ENV=test nyc ava && nyc report --reporter=json --reporter=lcov && alicov",
+    "cov":
+      "NODE_ENV=test nyc ava && nyc report --reporter=json --reporter=lcov && alicov",
     "ci": "npm run cov",
     "postinstall": "node install.js",
     "autod": "autod -w --prefix='^'"
   },
   "dependencies": {
+    "tslib": "^1.7.1",
     "typescript": "^2.6.2"
   },
   "devDependencies": {
@@ -33,16 +30,12 @@
   "engines": {
     "node": ">= 8.0.0"
   },
-  "files": [
-    "install.js"
-  ],
+  "files": ["install.js"],
   "ci": {
     "version": "8"
   },
   "ava": {
-    "files": [
-      "test/**/*.test.js"
-    ]
+    "files": ["test/**/*.test.js"]
   },
   "homepage": "https://github.com/avetjs/avet-typescript",
   "repository": {
