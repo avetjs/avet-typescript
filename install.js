@@ -33,9 +33,11 @@ if (!pkg.ts) {
 if (!pkg.scripts) {
   pkg.scripts = {};
 }
-
+console.log('=====', require(vscFileName));
+const existVscode = require(vscFileName) || {};
 const vscode = Object.assign(
-  require(vscFileName) || {},
+  {},
+  existVscode,
   {
     'files.exclude': {
       USE_GITIGNORE: true,

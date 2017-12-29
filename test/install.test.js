@@ -19,12 +19,13 @@ test('default', t => {
     TS_ROOT_FOR_TEST: getRoot('default'),
   });
   execSync(cmd, { env });
-  const file = fs.readFileSync(
+  const vscfile = fs.readFileSync(
     getJSON('default', '.vscode/settings.json'),
     'utf8'
   );
-  t.regex(file, /USE_GITIGNORE/);
-  t.regex(file, /"tsc": "tsc"/);
+  const pkgfile = fs.readFileSync(getJSON('default', 'package.json'), 'utf8');
+  t.regex(vscfile, /USE_GITIGNORE/);
+  t.regex(pkgfile, /avet-bin test/);
 });
 
 test('scripts', t => {
@@ -37,6 +38,7 @@ test('scripts', t => {
     'utf8'
   );
   t.regex(file, /npm run tsc:watch && egg-bin dev/);
+  t.regex(file, /"tsc": "tsc"/);
 });
 
 test('vscode', t => {
