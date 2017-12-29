@@ -9,7 +9,7 @@
   "scripts": {
     "test": "NODE_ENV=test ava",
     "cov":
-      "NODE_ENV=test nyc ava && nyc report --reporter=json --reporter=lcov && alicov",
+      "NODE_ENV=test nyc ava && nyc report --reporter=json --reporter=lcov",
     "ci": "npm run cov",
     "postinstall": "node install.js",
     "autod": "autod -w --prefix='^'"
