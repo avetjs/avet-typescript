@@ -80,8 +80,8 @@ const tsconfig = Object.assign(
       importHelpers: true,
       jsx: 'react-native',
     },
-    include: [ 'app/**/*', 'config/**/*', 'web/**/*', 'test/**/*.ts' ],
-    exclude: [ 'app/public', 'app/views', 'web/static' ],
+    include: [ 'app/**/*', 'config/**/*', 'web/**/*' ],
+    exclude: [ 'app/public', 'app/views', 'web/static', '**/__tests__/**/*' ],
   },
   pkg.ts.tsconfig || {}
 );
