@@ -24,6 +24,7 @@ test('default', t => {
     'utf8'
   );
   t.regex(file, /USE_GITIGNORE/);
+  t.regex(file, /"tsc": "tsc"/);
 });
 
 test('scripts', t => {
