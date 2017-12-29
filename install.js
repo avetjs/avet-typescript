@@ -14,8 +14,8 @@ const vscFileName = path.join(root, '.vscode', 'settings.json');
 const tscFileName = path.join(root, 'tsconfig.json');
 const tslFileName = path.join(root, 'tslint.json');
 
-mkdir(path.join(root, '.vscode'));
 if (!exists(tscFileName)) {
+  mkdir(path.join(root, '.vscode'));
   fs.writeFileSync(vscFileName, JSON.stringify({}, null, 2));
 }
 

@@ -35,7 +35,7 @@ test('scripts', t => {
     getJSON('exist-scripts', 'package.json'),
     'utf8'
   );
-  t.regex(file, /npm run tsc:watch & egg-bin dev/);
+  t.regex(file, /npm run tsc:watch && egg-bin dev/);
 });
 
 test('vscode', t => {
