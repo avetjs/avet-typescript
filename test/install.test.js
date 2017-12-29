@@ -50,5 +50,5 @@ test('vscode', t => {
     getJSON('exist-vscode', '.vscode/settings.json'),
     'utf8'
   );
-  t.regex(file, /editor\.tabSize/);
+  t.regex(file, /editor\.fontSize/);
 });

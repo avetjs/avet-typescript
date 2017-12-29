@@ -14,7 +14,7 @@ const vscFileName = path.join(root, '.vscode', 'settings.json');
 const tscFileName = path.join(root, 'tsconfig.json');
 const tslFileName = path.join(root, 'tslint.json');
 
-if (!exists(tscFileName)) {
+if (!exists(vscFileName)) {
   mkdir(path.join(root, '.vscode'));
   fs.writeFileSync(vscFileName, JSON.stringify({}, null, 2));
 }
@@ -33,7 +33,7 @@ if (!pkg.ts) {
 if (!pkg.scripts) {
   pkg.scripts = {};
 }
-console.log('=====', require(vscFileName));
+
 const existVscode = require(vscFileName) || {};
 const vscode = Object.assign(
   {},
