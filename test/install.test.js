@@ -58,9 +58,9 @@ test('typescript', t => {
     TS_ROOT_FOR_TEST: getRoot('include-exclude'),
   });
 
-  execSync('npm install');
+  execSync('npm install', { cwd: getRoot('include-exclude') });
   execSync(cmd, { env });
-  execSync('npm run tsc');
+  execSync('npm run tsc', { cwd: getRoot('include-exclude') });
 
   const appfile = fs.readFileSync(
     getJSON('include-exclude', 'app/app.js'),
