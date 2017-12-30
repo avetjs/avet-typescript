@@ -81,7 +81,13 @@ const tsconfig = Object.assign(
       jsx: 'react-native',
     },
     include: [ 'app/**/*', 'config/**/*', 'web/**/*' ],
-    exclude: [ 'app/public', 'app/views', 'web/static', '**/__tests__/**/*' ],
+    exclude: [
+      'app/public',
+      'app/views',
+      'web/static',
+      'web/page/__test__',
+      'web/component/__test__',
+    ],
   },
   pkg.ts.tsconfig || {}
 );

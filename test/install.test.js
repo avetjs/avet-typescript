@@ -52,3 +52,42 @@ test('vscode', t => {
   );
   t.regex(file, /editor\.fontSize/);
 });
+
+test('typescript', t => {
+  const env = Object.assign({}, process.env, {
+    TS_ROOT_FOR_TEST: getRoot('include-exclude'),
+  });
+  execSync(cmd, { env });
+
+  const appfile = fs.readFileSync(
+    getJSON('include-exclude', 'app/app.js'),
+    'utf8'
+  );
+
+  const configfile = fs.readFileSync(
+    getJSON('include-exclude', 'config/config.js'),
+    'utf8'
+  );
+
+  const webfile = fs.readFileSync(
+    getJSON('include-exclude', 'web/page/page.js'),
+    'utf8'
+  );
+
+  const appTestError = t.throws(() => {
+    fs.readFileSync(getJSON('include-exclude', 'test/index.test.js'), 'utf8');
+  });
+
+  const webTestError = t.throws(() => {
+    fs.readFileSync(
+      getJSON('include-exclude', 'web/page/__test__/web.test.js'),
+      'utf8'
+    );
+  });
+
+  t.true(!!appfile);
+  t.true(!!configfile);
+  t.true(!!webfile);
+  t.regex(appTestError.message, /ENOENT/);
+  t.regex(webTestError.message, /ENOENT/);
+});
