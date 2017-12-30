@@ -57,7 +57,10 @@ test('typescript', t => {
   const env = Object.assign({}, process.env, {
     TS_ROOT_FOR_TEST: getRoot('include-exclude'),
   });
+
+  execSync('npm install');
   execSync(cmd, { env });
+  execSync('npm run tsc');
 
   const appfile = fs.readFileSync(
     getJSON('include-exclude', 'app/app.js'),

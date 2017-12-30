@@ -1,0 +1,7 @@
+{
+  "name": "include-exclude",
+  "version": "1.0.0",
+  "dependencies": {
+    "typescript": "^2.6.0"
+  }
+}
