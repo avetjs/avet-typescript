@@ -138,7 +138,7 @@ pkg.devDependencies['@types/react'] = '^16.0.25';
 pkg.devDependencies['@types/react-dom'] = '^16.0.3';
 
 if (pkg.scripts.dev && !pkg.scripts.dev.includes('tsc:watch')) {
-  pkg.scripts.dev = `npm run tsc:watch && ${pkg.scripts.dev}`;
+  pkg.scripts.dev = `npm run tsc:watch & ${pkg.scripts.dev}`;
 }
 
 fs.writeFileSync(pkgFileName, JSON.stringify(pkg, null, 2));
