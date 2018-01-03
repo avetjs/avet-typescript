@@ -34,6 +34,10 @@ if (!pkg.scripts) {
   pkg.scripts = {};
 }
 
+if (!pkg.devDependencies) {
+  pkg.devDependencies = {};
+}
+
 const existVscode = require(vscFileName) || {};
 const vscode = Object.assign(
   {},
@@ -80,7 +84,16 @@ const tsconfig = Object.assign(
       importHelpers: true,
       jsx: 'react-native',
     },
-    include: [ 'app/**/*', 'config/**/*', 'web/**/*' ],
+    include: [
+      'node_modules/@types',
+      'typings',
+      'index.d.ts',
+      'app.ts',
+      'agent.ts',
+      'app/**/*',
+      'config/**/*',
+      'web/**/*',
+    ],
     exclude: [
       'app/public',
       'app/views',
@@ -121,6 +134,8 @@ pkg.scripts.tsc = 'tsc';
 pkg.scripts['tsc:watch'] = 'tsc -w';
 pkg.scripts['tsc:clean'] =
   'rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map}';
+pkg.devDependencies['@types/react'] = '^16.0.25';
+pkg.devDependencies['@types/react-dom'] = '^16.0.3';
 
 if (pkg.scripts.dev && !pkg.scripts.dev.includes('tsc:watch')) {
   pkg.scripts.dev = `npm run tsc:watch && ${pkg.scripts.dev}`;
