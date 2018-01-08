@@ -136,6 +136,7 @@ pkg.scripts['tsc:clean'] =
   'rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map}';
 pkg.devDependencies['@types/react'] = '^16.0.25';
 pkg.devDependencies['@types/react-dom'] = '^16.0.3';
+pkg.devDependencies['@types/node'] = '^8.5.7';
 
 if (pkg.scripts.dev && !pkg.scripts.dev.includes('tsc:watch')) {
   pkg.scripts.dev = `npm run tsc:watch & ${pkg.scripts.dev}`;
