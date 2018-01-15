@@ -69,6 +69,7 @@ const tsconfig = Object.assign(
       noImplicitAny: false,
       experimentalDecorators: true,
       emitDecoratorMetadata: true,
+      allowSyntheticDefaultImports: true,
       charset: 'utf8',
       allowJs: false,
       pretty: true,
