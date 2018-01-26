@@ -11,12 +11,18 @@ if (process.env.TS_ROOT_FOR_TEST) {
 
 const pkgFileName = path.join(root, 'package.json');
 const vscFileName = path.join(root, '.vscode', 'settings.json');
-const tscFileName = path.join(root, 'tsconfig.json');
+const tscServerFileName = path.join(root, 'tsconfig.json');
+const tscClientFileName = path.join(root, 'web', 'tsconfig.json');
 const tslFileName = path.join(root, 'tslint.json');
 
 if (!exists(vscFileName)) {
   mkdir(path.join(root, '.vscode'));
   fs.writeFileSync(vscFileName, JSON.stringify({}, null, 2));
+}
+
+if (!exists(tscClientFileName)) {
+  mkdir(path.join(root, 'web'));
+  fs.writeFileSync(tscClientFileName, JSON.stringify({}, null, 2));
 }
 
 let pkg;
@@ -60,7 +66,7 @@ const vscode = Object.assign(
   pkg.ts.vscode || {}
 );
 
-const tsconfig = Object.assign(
+const tsconfigServer = Object.assign(
   {
     compileOnSave: true,
     compilerOptions: {
@@ -93,17 +99,41 @@ const tsconfig = Object.assign(
       'agent.ts',
       'app/**/*',
       'config/**/*',
-      'web/**/*',
     ],
+    exclude: [ 'app/public', 'app/views' ],
+  },
+  pkg.ts.tsconfigServer || {}
+);
+
+const tsconfigClient = Object.assign(
+  {
+    compileOnSave: true,
+    compilerOptions: {
+      target: 'esnext',
+      module: 'esnext',
+      jsx: 'react-native',
+      allowJs: true,
+      moduleResolution: 'node',
+      allowSyntheticDefaultImports: true,
+      noUnusedLocals: true,
+      noUnusedParameters: true,
+      removeComments: false,
+      preserveConstEnums: true,
+      inlineSourceMap: true,
+      skipLibCheck: true,
+      typeRoots: [ '../node_modules/@types' ],
+      lib: [ 'dom', 'es2015', 'es2016' ],
+    },
+    include: [ '../typings', '../index.d.ts', '.' ],
     exclude: [
-      'app/public',
-      'app/views',
-      'web/static',
-      'web/page/__test__',
-      'web/component/__test__',
+      '.avet',
+      'asset-prod',
+      'static',
+      'page/__test__',
+      'component/__test__',
     ],
   },
-  pkg.ts.tsconfig || {}
+  pkg.ts.tsconfigClient || {}
 );
 
 const tslint = Object.assign(
@@ -131,21 +161,26 @@ const tslint = Object.assign(
   pkg.ts.tslint || {}
 );
 
-pkg.scripts.tsc = 'tsc';
-pkg.scripts['tsc:watch'] = 'tsc -w';
+pkg.scripts['tsc:server'] = 'tsc';
+pkg.scripts['tsc:client'] = 'tsc -p web/tsconfig.json';
+pkg.scripts['tsc:server:watch'] = 'tsc -w';
+pkg.scripts['tsc:client:watch'] = 'tsc -p web/tsconfig.json -w';
 pkg.scripts['tsc:clean'] =
-  'rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map}';
+  'rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map} web/**/*.{js,map}';
 pkg.devDependencies['@types/react'] = '^16.0.25';
 pkg.devDependencies['@types/react-dom'] = '^16.0.3';
 pkg.devDependencies['@types/node'] = '^8.5.7';
 
-if (pkg.scripts.dev && !pkg.scripts.dev.includes('tsc:watch')) {
-  pkg.scripts.dev = `npm run tsc:watch & ${pkg.scripts.dev}`;
+if (pkg.scripts.dev && !pkg.scripts.dev.includes('tsc')) {
+  pkg.scripts.dev = `npm run tsc:server:watch & npm run tsc:client:watch & ${
+    pkg.scripts.dev
+  }`;
 }
 
 fs.writeFileSync(pkgFileName, JSON.stringify(pkg, null, 2));
 fs.writeFileSync(vscFileName, JSON.stringify(vscode, null, 2));
-fs.writeFileSync(tscFileName, JSON.stringify(tsconfig, null, 2));
+fs.writeFileSync(tscServerFileName, JSON.stringify(tsconfigServer, null, 2));
+fs.writeFileSync(tscClientFileName, JSON.stringify(tsconfigClient, null, 2));
 fs.writeFileSync(tslFileName, JSON.stringify(tslint, null, 2));
 
 console.log('🎉 Typescript postinstall script complete.');
