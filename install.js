@@ -161,15 +161,15 @@ const tslint = Object.assign(
   pkg.ts.tslint || {}
 );
 
-pkg.scripts['tsc:server'] = 'tsc';
-pkg.scripts['tsc:client'] = 'tsc -p web/tsconfig.json';
-pkg.scripts['tsc:server:watch'] = 'tsc -w';
-pkg.scripts['tsc:client:watch'] = 'tsc -p web/tsconfig.json -w';
-pkg.scripts['tsc:clean'] =
+pkg.scripts['tsc:server'] = pkg.scripts['tsc:server'] || 'tsc';
+pkg.scripts['tsc:client'] = pkg.scripts['tsc:client'] || 'tsc -p web/tsconfig.json';
+pkg.scripts['tsc:server:watch'] = pkg.scripts['tsc:server:watch'] || 'tsc -w';
+pkg.scripts['tsc:client:watch'] = pkg.scripts['tsc:client:watch'] || 'tsc -p web/tsconfig.json -w';
+pkg.scripts['tsc:clean'] = pkg.scripts['tsc:clean'] ||
   'rimraf app/**/*.{js,map} test/**/*.{js,map} config/**/*.{js,map} web/**/*.{js,map}';
-pkg.devDependencies['@types/react'] = '^16.0.25';
-pkg.devDependencies['@types/react-dom'] = '^16.0.3';
-pkg.devDependencies['@types/node'] = '^8.5.7';
+pkg.devDependencies['@types/react'] = pkg.devDependencies['@types/react'] || '^16.0.25';
+pkg.devDependencies['@types/react-dom'] = pkg.devDependencies['@types/react-dom'] || '^16.0.3';
+pkg.devDependencies['@types/node'] = pkg.devDependencies['@types/node'] || '^8.5.7';
 
 if (pkg.scripts.dev && !pkg.scripts.dev.includes('tsc')) {
   pkg.scripts.dev = `npm run tsc:server:watch & npm run tsc:client:watch & ${
